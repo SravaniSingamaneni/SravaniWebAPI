@@ -26,6 +26,13 @@ namespace SravaniWebAPI.Controllers
         }
 
         // PUT:: Update Orders information in ReturnOrders collection
+        [HttpPut(Name ="UpdateOrderInfo/{id}")]
+        public async Task<IActionResult> UpdateOrderData(string id,[FromBody] Orders objUpdateOrder)
+        {
+            var updateResult= await _mongoOrderServicecs.UpdateOrdersAsync(id, objUpdateOrder);
+            return Ok(updateResult);
+        }
+
 
         // DELETE:: Delete Orders information from ReturnOrders collection
     }

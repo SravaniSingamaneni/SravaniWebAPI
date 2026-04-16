@@ -13,5 +13,23 @@ namespace SravaniWebAPI.Services
         {
             return await _mongoOrderRepository.SaveOrderAsync(objOrders);
         }
+
+        public async Task<Orders> UpdateOrdersAsync(string id, Orders objUpdateOrders)
+        {
+            // Get existing record first
+            var existingData=await _mongoOrderRepository.GetByIdAsync(id);
+            if (existingData == null) {
+                throw new Exception("Order Info not found!");
+            }
+
+            // OrderCreatedDate - Original date
+            objUpdateOrders.OrderCreatedDate=existingData.OrderCreatedDate;
+
+            // SET OrderModifiedDate 
+            objUpdateOrders.OrderModifiedDate=DateTime.Now;
+            objUpdateOrders.Id=id;
+
+            return await _mongoOrderRepository.UpdateOrderAsync(id,objUpdateOrders);
+        }
     }
 }

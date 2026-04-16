@@ -1,4 +1,5 @@
-﻿using SravaniWebAPI.DBContext;
+﻿using MongoDB.Driver;
+using SravaniWebAPI.DBContext;
 using SravaniWebAPI.Models;
 
 namespace SravaniWebAPI.Repository
@@ -11,11 +12,23 @@ namespace SravaniWebAPI.Repository
             _context = context;
         }
 
-        //
+        // Save Order information to MongoDB
         public async Task<Orders> SaveOrderAsync(Orders objOrders)
         {
             await _context.Orders.InsertOneAsync(objOrders);
             return objOrders;
         }
+
+        // Update Order information to MongoDB
+        public async Task<Orders> GetByIdAsync(string id)
+        {
+            return await _context.Orders.Find(x => x.Id == id).FirstOrDefaultAsync();
+        }
+        public async Task<Orders> UpdateOrderAsync(string id, Orders objUpdateOrder)
+        {
+            await _context.Orders.ReplaceOneAsync(x => x.Id == id, objUpdateOrder);
+            return objUpdateOrder;
+        }
+
     }
 }
