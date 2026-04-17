@@ -40,4 +40,9 @@ namespace SravaniWebAPI.Models
         [BsonElement("orderModifiedDate")]
         public DateTime OrderModifiedDate { get; set; }
     }
+
+    public class RequestCustomerOrders
+    {
+        public string OrderCode { get; set; }
+    }
 }

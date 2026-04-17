@@ -31,5 +31,15 @@ namespace SravaniWebAPI.Services
 
             return await _mongoOrderRepository.UpdateOrderAsync(id,objUpdateOrders);
         }
+
+        // Get Customer Orders Information based on Order Code
+        public async Task<List<Orders>> GetCustomerOrdersAsync(RequestCustomerOrders reqCustOrders)
+        {
+            // Get existing customer orders 
+            var customerOrderResult = await _mongoOrderRepository.GetByOrderCodeAsync(reqCustOrders);
+            if (customerOrderResult == null) { throw new Exception("Order info not found!"); }
+
+            return customerOrderResult;
+        }
     }
 }
