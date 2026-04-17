@@ -16,6 +16,14 @@ namespace SravaniWebAPI.Controllers
             _mongoOrderServicecs = mongoOrderServicecs;
         }
 
+        // GET:: Show the Customer orders based on OrderCode from mongoDB
+        [HttpGet(Name ="GetCustomerOrderInfo")]
+        public async Task<IActionResult> GetCustomerOrderData([FromQuery] RequestCustomerOrders reqCustOrders)
+        {
+            var getCustOrderResult = await _mongoOrderServicecs.GetCustomerOrdersAsync(reqCustOrders);
+            return Ok(getCustOrderResult);
+        }
+
         // POST:: Save Orders information in ReturnOrders collection
         [HttpPost(Name ="SaveOrderInfo")]
         public async Task<IActionResult> SaveOrderData([FromBody]Orders objOrder)
@@ -32,7 +40,6 @@ namespace SravaniWebAPI.Controllers
             var updateResult= await _mongoOrderServicecs.UpdateOrdersAsync(id, objUpdateOrder);
             return Ok(updateResult);
         }
-
 
         // DELETE:: Delete Orders information from ReturnOrders collection
     }
