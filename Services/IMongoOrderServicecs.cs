@@ -7,5 +7,6 @@ namespace SravaniWebAPI.Services
         Task<Orders> SaveOrdersAsync(Orders objOrders);
         Task<Orders> UpdateOrdersAsync(string id,Orders objUpdateOrder);
         Task<List<Orders>> GetCustomerOrdersAsync(RequestCustomerOrders reqCustOrders);
+        Task<long> DeleteByOrderCodeAsync(string orderCode);
     }
 }

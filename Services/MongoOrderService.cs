@@ -1,4 +1,5 @@
-﻿using SravaniWebAPI.Models;
+﻿using SravaniWebAPI.Exceptions;
+using SravaniWebAPI.Models;
 using SravaniWebAPI.Repository;
 
 namespace SravaniWebAPI.Services
@@ -19,7 +20,7 @@ namespace SravaniWebAPI.Services
             // Get existing record first
             var existingData=await _mongoOrderRepository.GetByIdAsync(id);
             if (existingData == null) {
-                throw new Exception("Order Info not found!");
+                throw new NotFoundException("Order Info not found!");
             }
 
             // OrderCreatedDate - Original date
@@ -35,11 +36,30 @@ namespace SravaniWebAPI.Services
         // Get Customer Orders Information based on Order Code
         public async Task<List<Orders>> GetCustomerOrdersAsync(RequestCustomerOrders reqCustOrders)
         {
+            // Check orderCode is empty or not
+            if (string.IsNullOrEmpty(reqCustOrders.OrderCode))
+                throw new BadRequestException("OrderCode is required!");
+
             // Get existing customer orders 
             var customerOrderResult = await _mongoOrderRepository.GetByOrderCodeAsync(reqCustOrders);
-            if (customerOrderResult == null) { throw new Exception("Order info not found!"); }
+            if (customerOrderResult == null) 
+                throw new NotFoundException("Order info not found!"); 
 
             return customerOrderResult;
+        }
+
+        // Delete Order information based on orderCode
+        public async Task<long> DeleteByOrderCodeAsync(string orderCode)
+        {
+            // Check orderCode is empty or not
+            if (string.IsNullOrEmpty(orderCode))
+                throw new BadRequestException("OrderCode is required!");
+
+            var deleteCount= await _mongoOrderRepository.DeleteByOrderCodeAsync(orderCode);
+            if (deleteCount == 0)
+                throw new NotFoundException($"No records found for given OrderCode ({orderCode})!");
+
+            return deleteCount;
         }
     }
 }

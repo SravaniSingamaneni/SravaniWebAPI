@@ -41,6 +41,13 @@ namespace SravaniWebAPI.Controllers
             return Ok(updateResult);
         }
 
-        // DELETE:: Delete Orders information from ReturnOrders collection
+        // DELETE:: Delete Orders information based on OrderCode
+        [HttpDelete(Name ="DeleteOrderInfo/{OrderCode}")]
+        public async Task<IActionResult> DeleteByOrderCode(string OrderCode)
+        {
+            var deleteCount = await _mongoOrderServicecs.DeleteByOrderCodeAsync(OrderCode); 
+            
+            return Ok($"{OrderCode} record(s) deleted successfully!");
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace SravaniWebAPI.Repository
         Task<List<Orders>> GetByOrderCodeAsync(RequestCustomerOrders reqCustOrders);
         Task<Orders> GetByIdAsync(string id);
         Task<Orders> UpdateOrderAsync(string id,Orders objUpdateOrder);
+        Task<long> DeleteByOrderCodeAsync(string orderCode);
     }
 }

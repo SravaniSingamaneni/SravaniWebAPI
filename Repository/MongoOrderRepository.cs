@@ -36,5 +36,11 @@ namespace SravaniWebAPI.Repository
             return objUpdateOrder;
         }
 
+        // Delete Order information based on orderCode
+        public async Task<long> DeleteByOrderCodeAsync(string orderCode)
+        {
+            var result = await _context.Orders.DeleteManyAsync(x => x.OrderCode == orderCode);
+            return result.DeletedCount;
+        }
     }
 }
