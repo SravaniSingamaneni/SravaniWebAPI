@@ -1,3 +1,4 @@
+using SravaniWebAPI;
 using SravaniWebAPI.DBContext;
 using SravaniWebAPI.Repository;
 using SravaniWebAPI.Services;
@@ -25,6 +26,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 
