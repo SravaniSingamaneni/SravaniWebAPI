@@ -2,6 +2,9 @@ using SravaniWebAPI;
 using SravaniWebAPI.DBContext;
 using SravaniWebAPI.Repository;
 using SravaniWebAPI.Services;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using SravaniWebAPI.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,11 @@ builder.Services.AddSingleton<IMongoDBContext, MongoDBContext>();
 builder.Services.AddScoped<IMongoOrderServicecs, MongoOrderService>();
 builder.Services.AddScoped<IMongoOrderRepository, MongoOrderRepository>();
 builder.Services.AddControllers();
+
+// Add services to the FluentValidation 
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateOrderRequestValidator>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
