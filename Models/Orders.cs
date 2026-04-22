@@ -26,7 +26,7 @@ namespace SravaniWebAPI.Models
         [BsonElement("stateCode")]
         public string StateCode { get; set; }
         [BsonElement("postalCode")]
-        public int PostalCode { get; set; }
+        public string PostalCode { get; set; }
         [BsonElement("country")]
         public string Country { get; set; }
         [BsonElement("emailId")]
