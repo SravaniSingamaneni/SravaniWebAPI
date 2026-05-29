@@ -1,4 +1,4 @@
-A production‑ready .NET 8 Web API for managing customer and order data, built using Clean Architecture, Entity Framework Core, SQL Server, and structured validation.
+A production‑ready .NET 8 Web API for managing customer and order data, built using Clean Architecture, Entity Framework Core, MongoDB, and structured validation.
 This project demonstrates real‑world backend development practices including layered design, DTO mapping, validation, error handling, and RESTful API standards.
 
 🚀 Features
@@ -8,7 +8,7 @@ Built with .NET 8 Web API
 
 Clean Architecture (Controllers → Services → Repositories → Database)
 
-Entity Framework Core with SQL Server
+Entity Framework Core with MongoDB
 
 FluentValidation for request validation
 
@@ -28,4 +28,4 @@ Application Layer (Services, DTOs, Validation)
         ↓
 Infrastructure Layer (Repositories, EF Core, SQL Server)
         ↓
-Database (SQL Server)
+Database (MongoDB Compass)
